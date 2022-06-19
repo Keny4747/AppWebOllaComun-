@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="utf-8">
+	<title>Sistema de olla comun</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+	<link rel="stylesheet" href="assets/css/app.min.css">
+	<!-- Template CSS -->
+	<link rel="stylesheet" href="assets/css/style.css">
+	<link rel="stylesheet" href="assets/css/components.css">
+	<!-- Custom style CSS -->
+	<link rel="stylesheet" href="assets/css/custom.css">
+	<link rel='shortcut icon' type='image/x-icon' href='assets/img/favicon.ico' />
+</head>
+<body>
+<div class="loader"></div>
+<div id="app">
+	<div class="main-wrapper main-wrapper-1">
+		<div class="navbar-bg"></div>
+		<nav class="navbar navbar-expand-lg main-navbar sticky">
+			<div class="form-inline mr-auto">
+				<ul class="navbar-nav mr-3">
+					<li><a href="#" data-toggle="sidebar" class="nav-link nav-link-lg
+									collapse-btn"> <i data-feather="align-justify"></i></a></li>
+				</ul>
+			</div>
+			<ul class="navbar-nav navbar-right">
+				<li class="dropdown"><a href="#" data-toggle="dropdown"
+										class="nav-link dropdown-toggle nav-link-lg nav-link-user"> <img alt="image" src="assets/img/users/user-3.png"
+																										 class="user-img-radious-style"> <span class="d-sm-none d-lg-inline-block"></span></a>
+					<div class="dropdown-menu dropdown-menu-right pullDown">
+						<div class="dropdown-title">Hola Admin</div>
+						<div class="dropdown-divider"></div>
+						<a th:href="@{/cerrar}" class="dropdown-item has-icon text-danger"> <i class="fas fa-sign-out-alt"></i>
+							Cerrar sesión
+						</a>
+					</div>
+				</li>
+			</ul>
+		</nav>
+		<div class="main-sidebar sidebar-style-2">
+			<aside id="sidebar-wrapper">
+				<div class="sidebar-brand">
+					<a th:href="@{/dashboard}" > <img alt="image" src="assets/img/logo.png" class="header-logo" /> <span
+							class="logo-name">OllaComun</span>
+					</a>
+				</div>
+				<ul class="sidebar-menu">
+					<li class="menu-header">Menu</li>
+					<li class="dropdown active">
+						<a th:href="@{/dashboard}"  class="nav-link"><i data-feather="monitor"></i><span>Dashboard</span></a>
+					</li>
+					<li class="dropdown">
+						<a href="#" class="menu-toggle nav-link has-dropdown"><i
+								data-feather="briefcase"></i><span>Mantenimiento</span></a>
+						<ul class="dropdown-menu">
+							<li><a class="nav-link" th:href="@{/encargados}">Gestionar Encargado</a></li>
+							<li><a class="nav-link" th:href="@{/voluntarios}">Gestionar Voluntario</a></li>
+							<li><a class="nav-link" th:href="@{/ollas}">Gestinar Olla</a></li>
+							<li><a class="nav-link" th:href="@{/grupos}">Gestionar Grupo</a></li>
+						</ul>
+					</li>
+					<li class="dropdown">
+						<a href="#" class="menu-toggle nav-link has-dropdown"><i
+								data-feather="briefcase"></i><span>Reporte</span></a>
+						<ul class="dropdown-menu">
+							<li><a class="nav-link" th:href="@{/reporteform}">Reporte Segun el distrito</a></li>
+						</ul>
+					</li>
+				</ul>
+			</aside>
+		</div>
+		<!-- Main Content -->
+		<div class="main-content">
+			<section class="section">
+				<div class="container">
+					<div th:if="${msgExito != null}" class="alert alert-success alert-dismissible">
+						[[${msgExito}]]
+						<button type="button" class="btn btn-close" data-bs-dismiss="alert"></button>
+					</div>
+				</div>
+				<!-- fin  -->
+				<div class="container text-center">
+					<div>
+						<h1>Lista de voluntarios</h1>
+					</div>
+					<br>
+
+					<!-- boton añadir nuevo  -->
+					<div align="left" class="m-3">
+						<a href="/voluntarios/nuevo"  class="btn btn-primary ms-2"><i class="fas fa-plus-circle"></i>&nbsp;añadir nuevo</a>
+					</div>
+					<!-- fin boton añadir nuevo -->
+
+					<div>
+
+						<table class="table table-striped ">
+							<thead class="table-black ">
+							<tr>
+								<th>ID</th>
+								<th>DNI</th>
+								<th>Nombre:</th>
+								<th>Apellidos:</th>
+								<th>Sexo:</th>
+								<th>telefono</th>
+								<th>Correo:</th>
+								<th>Fecha nac:</th>
+								<th>Tipo:</th>
+								<th>Detalle:</th>
+								<th>Editar:</th>
+								<th>Eliminar:</th>
+								<th>Listar Grupos</th>
+								<th>Añadir a Grupo</th>
+							</tr>
+							</thead>
+							<tbody>
+							<tr th:each="voluntario :${listaVoluntarios}">
+								<td th:text="${voluntario.id}"></td>
+								<td th:text="${voluntario.dni}"></td>
+								<td th:text="${voluntario.nombre}"></td>
+								<td th:text="${voluntario.apellido}"></td>
+								<td th:text="${voluntario.sexo}"></td>
+								<td th:text="${voluntario.telefono}"></td>
+								<td th:text="${voluntario.correo}"></td>
+								<td th:text="${voluntario.fecha}"></td>
+								<td th:text="${voluntario.tipo}"></td>
+								<!-- boton detalles registro -->
+								<td> <a class="btn btn-success" th:href="@{/ver/}+${voluntario.id}"><i class="fas fa-eye"></i></a></td>
+								<!-- boton editar -->
+								<td><a th:href="@{'/voluntarios/editar'+'/'+${voluntario.id}}"
+									   class="btn btn-warning"><i class="fas fa-pencil-alt"></i></a></td>
+								<!-- boton eliminar -->
+								<td><a th:href="@{'/voluntarios/eliminar'+'/'+${voluntario.id}}"
+									   class="btn btn-danger"><i class="fas fa-trash"></i></a></td>
+								<td><a th:href="@{'/detallegrupo/listagrupos'+'/'+${voluntario.id}}"
+									   class="btn btn-success"><i class="fas fa-list-ol"></i></a></td>
+								<td><a th:href="@{'/detallegrupo/nuevo'+'/'+${voluntario.id}}"
+									   class="btn btn-info"><i class="far fa-file"></i></a></td>
+							</tr>
+							</tbody>
+						</table>
+
+						<!-- paginacion -->
+
+						<nav th:replace="/recursos/paginator-nav :: paginator"></nav>
+
+					</div>
+				</div>
+			</section>
+		</div>
+		<footer class="main-footer">
+			<div class="footer-left">
+				
+			</div>
+			<div class="footer-right">
+			</div>
+		</footer>
+	</div>
+</div>
+<!-- General JS Scripts -->
+<script src="assets/js/app.min.js"></script>
+<!-- JS Libraies -->
+<script src="assets/bundles/apexcharts/apexcharts.min.js"></script>
+<!-- Page Specific JS File -->
+<script src="assets/js/page/index.js"></script>
+<!-- Template JS File -->
+<script src="assets/js/scripts.js"></script>
+<!-- Custom JS File -->
+<script src="assets/js/custom.js"></script>
+</body>
+</html>

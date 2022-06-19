@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<title>Sistema de olla comun</title>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+	crossorigin="anonymous">
+</head>
+<body>
+
+	<div class="container text-center ">
+		<div>
+		<!-- modificado para editar -->
+			<h1>Registrar en grupo</h1>
+		</div>
+		<form th:action="@{/detalleolla/grabar}" method="POST" th:object="${detalleolla}" style="max-width: 600px; margin: 0 auto;">
+
+			<div class="m-3">
+				<!--ingresar tipo voluntariado-->
+				<div class="form-group row">
+					<label class="col-form-label col-sm-4">Ingresar Olla:</label>
+					<div class="col-sm-8">
+						<select th:field="*{ollaid}" class="form-control" required>
+							<th:block th:each="olla: ${listao}">
+								<option th:text="${olla.nombre}" th:value="${olla.id}"></option>
+							</th:block>
+						</select>
+					</div>
+				</div>
+				<div class="form-group row">
+					<label class="col-form-label col-sm-4">Ingresar Grupo:</label>
+					<div class="col-sm-8">
+						<select th:field="*{grupoid}" class="form-control" required>
+							<th:block th:each="grupo: ${lista}">
+								<option th:text="${grupo.codigo}" th:value="${grupo.id}"></option>
+							</th:block>
+						</select>
+					</div>
+				</div>
+				<!--boton registrar-->
+				<br>
+				<div class="text-center p">
+					<button type="submit" class="btn btn-primary">Registrar información</button>
+					<a href="/voluntarios" class="btn btn-light ms-2">Cancelar</a>
+				</div>
+
+			</div>
+		</form>
+	</div>
+</body>
+</html>
