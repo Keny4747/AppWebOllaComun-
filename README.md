@@ -25,7 +25,9 @@ To deploy this project run
   
 ```
 
+## Appendix
 
+thymeleaf + javascrip + springFramework + JPA + MySQ
 ## License
 
 [MIT](https://choosealicense.com/licenses/mit/)
