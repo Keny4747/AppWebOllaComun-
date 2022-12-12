@@ -27,7 +27,7 @@ To deploy this project run
 
 ## Appendix
 
-thymeleaf + javascrip + springFramework + JPA + MySQL
+thymeleaf + javascrip + springFramework + JPA + MySQL + Bootstrap + Java
 ## License
 
 [MIT](https://choosealicense.com/licenses/mit/)
